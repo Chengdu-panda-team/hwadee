@@ -1,0 +1,57 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+  <title>新增商品</title>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/addCSS.css">
+  <style>
+      /*body{*/
+      /*    background-color: #d1e7ed;*/
+      /*}*/
+  </style>
+</head>
+<body>
+<div>
+    <h1 style="color: burlywood;font-family: 方正粗黑宋简体 ">新增商品信息</h1>
+    <form action="<%=request.getContextPath()%>/goods/addGoods" enctype="multipart/form-data" method="post">
+        <table  width="500px" height="300px">
+            <tr>
+                <td class="item_name" >商品名称</td>
+                <td><input type="text" name="goodsName" class="textinput"></td>
+            </tr>
+            <tr>
+                <td class="item_name">商品价格</td>
+                <td><input type="text" name="goodsPrice" class="textinput"></td>
+            </tr>
+            <tr>
+                <td class="item_name">商品种类</td>
+                <td>
+                    <select name="goodsCategory"  class="textinput">
+                        <option>请选择</option>
+                        <option>奶茶</option>
+                        <option>果茶</option>
+                        <option>冷萃茶</option>
+                        <option>烧仙草</option>
+                        <option>咖啡</option>
+                    </select>
+                </td>
+            </tr>
+            <td class="item_name">上传图片</td>
+            <td><label class="uploadImg" ><input type="file" name="goodsImgFile"></label></td>
+            <tr>
+            </tr>
+            <td class="item_name">用料详情</td>
+            <td>
+                <textarea name="goodsInf" class="textinput">用料详情</textarea>
+            </td>
+            <tr>
+                <td> </td>
+                <td>
+                    <input type="submit" value="提交" class="btn">
+                    <input type="button" value="取消" class="btn" onclick="history.go(-1)">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

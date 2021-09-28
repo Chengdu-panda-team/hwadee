@@ -1,0 +1,22 @@
+package MaozaiTea.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+@RequestMapping(value = "/admin")
+public class LoginController {
+    @RequestMapping(value = "/login")
+    public String adminLogin(@RequestParam("loginname") String loginname,
+                             @RequestParam("password") String password) {
+        if (loginname.equals("panda") && password.equals("001")) {
+            System.out.println("登录成功");
+            return "index";
+        }
+        else {
+            System.out.println(loginname + " " + password);
+            return "fail";
+        }
+    }
+}

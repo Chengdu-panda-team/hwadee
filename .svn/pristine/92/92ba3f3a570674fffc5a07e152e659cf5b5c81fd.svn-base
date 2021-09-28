@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <!-- 实体类,简称 -设置别名 -->
+    <typeAliases>
+        <typeAlias alias="Customer" type="MaozaiTea.pojo.Customer" />
+        <typeAlias alias="Goods" type="MaozaiTea.pojo.Goods" />
+        <typeAlias alias="Product" type="MaozaiTea.pojo.Product" />
+        <typeAlias alias="Supplier" type="MaozaiTea.pojo.Supplier" />
+    </typeAliases>
+    <!-- 实体接口映射文件 -->
+    <mappers>
+        <mapper resource="mapper/CustomerMapper.xml" />
+        <mapper resource="mapper/GoodsMapper.xml" />
+        <mapper resource="mapper/ProductMapper.xml" />
+        <mapper resource="mapper/SupplierMapper.xml" />
+    </mappers>
+
+</configuration>

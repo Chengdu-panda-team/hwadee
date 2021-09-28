@@ -1,0 +1,59 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: admin
+  Date: 2021/7/22
+  Time: 17:16
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>showSupplier</title>
+    <style >
+
+        a {
+            text-decoration:none;
+        }
+    </style>
+</head>
+<body>
+<div class="rt_content">
+    <div class="page_title">
+        <h2 class="fl">供应商列表展示</h2>
+        <a href="<%=request.getContextPath()%>/supplier/add" class="fr top_rt_btn add_icon">添加供应商</a>
+    </div>
+    <section class="mtb">
+        <input type="text" class="textbox textbox_225" placeholder="输入供应商名称"/>
+        <input type="button" value="查询" class="group_btn"/>
+    </section>
+    <table class="table">
+        <tr>
+            <th>供应商编号</th>
+            <th>供应商名称</th>
+            <th>供应商电话</th>
+            <th>供应商地址</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>供应商编号</td>
+            <td>供应商名称</td>
+            <td>供应商电话</td>
+            <td>供应商地址</td>
+            <td>
+                <a href="" title="编辑" class="link_icon">编辑</a>
+                <a href="" title="删除" class="link_icon">删除</a>
+            </td>
+        </tr>
+    </table>
+    <aside class="paging">
+        <a>第一页</a>
+        <a>1</a>
+        <a>2</a>
+        <a>3</a>
+        <a>…</a>
+        <a>1004</a>
+        <a>最后一页</a>
+    </aside>
+</div>
+</body>
+</html>

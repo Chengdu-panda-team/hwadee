@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MaozaiTea.mapper.ProductMapper">
+    <select id="getAllProduct" resultType="Product">
+        select * from product
+    </select>
+
+    <select id="getProductByOr" parameterType="Product" resultType="Product">
+        select * from product
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="productName != null">
+                and productName = #{productName}
+            </if>
+            <if test="productPrice != null">
+                and productPrice = #{productPrice}
+            </if>
+            <if test="productNum != null">
+                and productNum = #{productNum}
+            </if>
+            <if test="productODate != null">
+                and productODate = #{productODate}
+            </if>
+            <if test="productDDate != null">
+                and productDDate = #{productDDate}
+            </if>
+            <if test="supplierID != 0">
+                and supplierID = #{supplierID}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getProductByID" parameterType="java.lang.Integer" resultType="Product">
+        select * from product where productID = #{param1}
+    </select>
+
+    <insert id="addProduct" parameterType="Product">
+        <selectKey keyProperty="productID" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id()
+        </selectKey>
+        insert into product(productID, productName, productPrice, productNum, productODate, productDDate, supplierID)
+        values
+        (#{productID}, #{productName}, #{productPrice}, #{productNum}, #{productODate}, #{productDDate}, #{supplierID})
+    </insert>
+
+    <delete id="deleteProduct" parameterType="java.lang.Integer">
+        delete from product where productID = #{param1}
+    </delete>
+
+    <update id="updateProduct" parameterType="Product">
+        update productID
+        <trim prefix="set" suffixOverrides=",">
+            <if test="productName != null">
+                productName = #{productName},
+            </if>
+            <if test="productPrice != null">
+                productPrice = #{productPrice},
+            </if>
+            <if test="productNum != null">
+                productNum = #{productNum},
+            </if>
+            <if test="productODate != null">
+                productODate = #{productODate},
+            </if>
+            <if test="productDDate != null">
+                productDDate = #{productDDate},
+            </if>
+            <if test="supplierID != 0">
+                supplierID = #{supplierID},
+            </if>
+        </trim>
+        where productID = #{productID}
+    </update>
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MaozaiTea.mapper.SupplierMapper">
+    <select id="getAllSupplier" resultType="Supplier">
+        select * from supplier
+    </select>
+
+    <select id="getSupplierByOr" parameterType="Supplier" resultType="Supplier">
+        select * from supplier
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="supplierName != null">
+                and supplierName = #{supplierName}
+            </if>
+            <if test="supplierTel != null">
+                and supplierTel = #{supplierTel}
+            </if>
+            <if test="supplierAddress != null">
+                and supplierAddress = #{supplierAddress}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getSupplierByID" parameterType="java.lang.Integer" resultType="Supplier">
+        select * from supplier where supplierID = #{param1}
+    </select>
+
+    <insert id="addSupplier" parameterType="Supplier">
+        <selectKey keyProperty="supplierID" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id()
+        </selectKey>
+        insert into supplier(supplierID, supplierName, supplierTel, supplierAddress)
+        values
+        (#{supplierID}, #{supplierName}, #{supplierTel}, #{supplierAddress})
+    </insert>
+
+    <delete id="deleteSupplier" parameterType="java.lang.Integer">
+        delete from supplier where supplierID = #{param1}
+    </delete>
+
+    <update id="updateSupplier" parameterType="Supplier">
+        update supplier
+        <trim prefix="set" prefixOverrides="and | or">
+            <if test="supplierName != null">
+                and supplierName = #{supplierName}
+            </if>
+            <if test="supplierTel != null">
+                and supplierTel = #{supplierTel}
+            </if>
+            <if test="supplierAddress != null">
+                and supplierAddress = #{supplierAddress}
+            </if>
+        </trim>
+        where supplierID = #{supplierID}
+    </update>
+</mapper>

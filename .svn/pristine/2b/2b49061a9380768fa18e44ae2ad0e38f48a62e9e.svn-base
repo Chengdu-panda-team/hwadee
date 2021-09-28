@@ -1,0 +1,96 @@
+import MaozaiTea.pojo.Goods;
+import MaozaiTea.pojo.GoodsQuery;
+import MaozaiTea.service.GoodsService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
+
+@ContextConfiguration("classpath:springApplication.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+public class GoodsMapperTest {
+
+    @Autowired
+    private BeanFactory beanFactory;
+
+    @Test
+    public void testGetAllGoods(){
+        GoodsService goodsService = beanFactory.getBean("goodsService",GoodsService.class);
+        List<Goods> res = goodsService.getAllGoods();
+        for (Goods i: res){
+            System.out.println(i);
+        }
+    }
+
+    @Test
+    public void testGetGoodsByOr(){
+        GoodsService goodsService = beanFactory.getBean("goodsService",GoodsService.class);
+        Goods goods = new Goods();
+        goods.setGoodsName("草莓牛奶麻薯");
+        goods.setGoodsPrice(18.0);
+        goods.setGoodsCategory("果茶");
+        List<Goods> res = goodsService.getGoodsByOr(goods);
+        for (Goods i:res) {
+            System.out.println(i);
+        }
+    }
+
+    @Test
+    public void testGetGoodsByID(){
+        GoodsService goodsService = beanFactory.getBean("goodsService",GoodsService.class);
+        Goods res = goodsService.getGoodsByID(4);
+        System.out.println(res);
+    }
+
+    @Test
+    public void testAddGoods(){
+        GoodsService goodsService = beanFactory.getBean("goodsService",GoodsService.class);
+        Goods goods = new Goods();
+        goods.setGoodsName("茉莉雪顶");
+        goods.setGoodsCategory("奶茶");
+        goods.setGoodsPrice(25);
+        goods.setGoodsInf("茶叶、牛奶");
+        int res = goodsService.addGoods(goods);
+        System.out.println(res);
+    }
+
+    @Test
+    public void testDeleteGoods(){
+        GoodsService goodsService = beanFactory.getBean("goodsService",GoodsService.class);
+        goodsService.deleteGoods(5);
+    }
+
+
+    @Test
+    public void testUpdateGoods(){
+        GoodsService goodsService = beanFactory.getBean("goodsService",GoodsService.class);
+        Goods goods = new Goods();
+        goods.setGoodsID(13);
+        goods.setGoodsName("茉莉雪");
+        goodsService.updateGoods(goods);
+    }
+
+    @Test
+    public void testGetGoodsByOr2() {
+        GoodsService goodsService = beanFactory.getBean("goodsService", GoodsService.class);
+        GoodsQuery goodsQuery = new GoodsQuery();
+        goodsQuery.setGoodsQueryPageSize(5);
+        goodsQuery.setGoodsQueryStart(5);
+        List<Goods> res = goodsService.getGoodsByOr2(goodsQuery);
+        for (Goods i: res) {
+            System.out.println(i);
+        }
+    }
+
+    @Test
+    public void testGetCount() {
+        GoodsService goodsService = beanFactory.getBean("goodsService", GoodsService.class);
+        GoodsQuery goodsQuery = new GoodsQuery();
+        goodsQuery.setGoodsQueryCategory("奶茶");
+        System.out.println(goodsService.getCount(goodsQuery));
+    }
+}

@@ -1,0 +1,39 @@
+package MaozaiTea.controller;
+
+import MaozaiTea.pojo.Goods;
+import MaozaiTea.service.GoodsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping(value = "/goods")
+public class GoodsController {
+    @Autowired
+    private GoodsService goodsService;
+
+    @RequestMapping(value = "/show/{page}")
+    public String showGoods(Model model, @PathVariable("page") int page) {
+        List<Goods> goodsList1 = goodsService.getAllGoods();
+        List<Goods> goodsList = new ArrayList<Goods>();
+        int goodsListLength = goodsList1.size();
+        int pageCount = goodsListLength / 5;
+        if ((goodsListLength % 5) != 0) ++pageCount;
+        for (int i = (page-1)*5, cnt = 0; i < goodsListLength && cnt < 5; ++i, ++cnt) {
+            goodsList.add(goodsList1.get(i));
+        }
+        model.addAttribute("goodsList", goodsList);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("curPage", page);
+        return "showGoods";
+    }
+    @RequestMapping(value = "/add")
+    public String addGoods() {
+        return "addGoods";
+    }
+}

@@ -1,0 +1,59 @@
+package MaozaiTea.controller;
+
+import MaozaiTea.pojo.Customer;
+import MaozaiTea.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping(value = "/customer")
+public class CustomerController {
+    @Autowired
+    private CustomerService customerService;
+
+    @RequestMapping(value = "/show/{page}")
+    public String showCustomer(Model model, @PathVariable("page") int page) {
+        List<Customer> customerList1 = customerService.getAllCustomer();
+        List<Customer> customerList = new ArrayList<Customer>();
+        int customerListLength = customerList1.size();
+        int pageCount = customerListLength / 5;
+        if ((customerListLength % 5) != 0) ++pageCount;
+        if (page > pageCount) page = pageCount;
+        if (page < 1) page = 1;
+        for (int i = (page-1)*5, cnt = 0; i < customerListLength && cnt < 5; ++i, ++cnt) {
+            customerList.add(customerList1.get(i));
+        }
+        model.addAttribute("customers", customerList);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("curPage", page);
+        return "showCustomer";
+    }
+    @RequestMapping(value = "/add")
+    public String addCustomer() {
+        return "addCustomer";
+    }
+
+//    ----------------update by 任黎明---------------------
+@RequestMapping(value = "/update/{customerID}")
+public String getCustomerById(@PathVariable("customerID") int customerID,
+                              Model model){
+        Customer customer = customerService.getCustomerByID(customerID);
+        model.addAttribute("customer",customer);
+        return "updateCustomer";
+}
+@RequestMapping(value="saveUpdate/{customerID}")
+public String updateCustomer(@PathVariable("customerID") int customerID,
+                             Customer customer) {
+        customer.setCustomerID(customerID);
+        customerService.updateCustomer(customer);
+    return "showCustomer";
+}
+//--------------------------------------------------------
+
+}

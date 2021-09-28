@@ -1,0 +1,53 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 86198
+  Date: 2021/7/22
+  Time: 16:51
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>增加产品信息</title>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/bootstrap.css">
+    <style>
+        body {
+            background:url("<%=request.getContextPath() %>/resources/images/background2.png");
+        }
+    </style>
+</head>
+<body>
+<div align="center">
+    <h4>新增产品信息</h4>
+    <form action="<%=request.getContextPath()%>/">
+        <table>
+            <tr>
+                <td style="width:120px;">产品名称</td><td><input type="text" name="productName"></td>
+            </tr>
+            <tr>
+                <td style="width:120px;">产品价格</td><td><input type="text" name="productPrice"></td>
+            </tr>
+            <tr>
+                <td style="width:120px;">产品库存</td><td><input type="text" name="productNum"></td>
+            </tr>
+            <tr>
+                <td style="width:120px;">生产日期</td><td><input type="date" name="productODate"></td>
+            </tr>
+            <tr>
+                <td style="width:120px;">截止日期</td><td><input type="date" name="productDDate"></td>
+            </tr>
+            <tr>
+                <td style="width:120px;">供应商编号</td><td><input type="number" name="supplierID"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="提交">
+                    <input type="button" value="取消" onclick="history.go(-1)">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

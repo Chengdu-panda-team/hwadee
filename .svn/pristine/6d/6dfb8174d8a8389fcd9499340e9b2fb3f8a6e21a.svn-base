@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MaozaiTea.mapper.CustomerMapper">
+
+    <select id="getAllCustomer" resultType="Customer">
+        select * from customer
+    </select>
+
+    <select id="getCustomerByOr" parameterType="Customer" resultType="Customer">
+        select * from customer
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="customerName != null">
+                and customerName = #{customerName}
+            </if>
+            <if test="customerTel != null">
+                and customerTel = #{customerTel}
+            </if>
+            <if test="customerAddress != null">
+                and customerAddress = #{customerAddress}
+            </if>
+            <if test="customerSex != null">
+                and customerSex = #{customerSex}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getCustomerByID" parameterType="java.lang.Integer" resultType="Customer">
+        select * from customer where customerID = #{param1}
+    </select>
+
+    <insert id="addCustomer" parameterType="Customer">
+        <selectKey keyProperty="customerID" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id()
+        </selectKey>
+        insert into customer(customerID, customerName, customerTel, customerAddress, customerSex)
+        values
+        (#{customerID}, #{customerName}, #{customerTel}, #{customerAddress}, #{customerSex})
+    </insert>
+
+    <delete id="deleteCustomer" parameterType="java.lang.Integer">
+        delete from customer where customerID = #{param1}
+    </delete>
+
+    <update id="updateCustomer" parameterType="Customer">
+        update customer
+        <trim prefix="set" prefixOverrides=",">
+            <if test="customerName != null">
+                customerName = #{customerName},
+            </if>
+            <if test="customerTel != null">
+                customerTel = #{customerTel},
+            </if>
+            <if test="customerAddress != null">
+                customerAddress = #{customerAddress},
+            </if>
+            <if test="customerSex != null">
+                customerSex = #{customerSex},
+            </if>
+        </trim>
+        where customerID = #{customerID}
+    </update>
+</mapper>

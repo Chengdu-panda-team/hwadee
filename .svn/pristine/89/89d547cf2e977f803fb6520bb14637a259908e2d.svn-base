@@ -1,0 +1,186 @@
+package MaozaiTea.controller;
+
+import MaozaiTea.pojo.Product;
+import MaozaiTea.pojo.Supplier;
+import MaozaiTea.pojo.sup;
+import MaozaiTea.service.ProductService;
+import MaozaiTea.service.SupplierService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static java.lang.Math.min;
+
+@Controller
+@RequestMapping(value = "/product")
+public class ProductController {
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private SupplierService supplierService;
+
+    @RequestMapping(value = "/show/{page}")
+    public String showProduct(Model model, @PathVariable("page") int page, String productName) {
+        Product product = new Product();
+        product.setProductName(productName);
+
+        List<Product> productList1 = productService.getProductByOr(product);
+        List<Product> productList = new ArrayList<Product>();
+        int productListLength = productList1.size();
+        int pageCount = productListLength / 5;
+        if ((productListLength % 5) != 0) ++pageCount;
+        if (pageCount < 1) pageCount = 1;
+        if (page > pageCount) page = pageCount;
+        if (page < 1) page = 1;
+        for (int i = (page-1)*5, cnt = 0; i < productListLength && cnt < 5; ++i, ++cnt) {
+            productList.add(productList1.get(i));
+        }
+        model.addAttribute("products", productList);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("curPage", page);
+        model.addAttribute("productName", productName);
+        return "showProduct";
+    }
+    @RequestMapping(value = "/add")
+    public String addProduct(Model model) {
+        List<Supplier> suppliers = supplierService.getAllSupplier();
+        List<String> supplierIDAndName = new ArrayList<String>();
+        for (Supplier i: suppliers) {
+            supplierIDAndName.add(i.getSupplierID() + " " + i.getSupplierName());
+        }
+        model.addAttribute("suppliers", supplierIDAndName);
+        return "addProduct";
+    }
+
+    @RequestMapping(value = "/addProduct")
+    public String addProduct(Product product, @RequestParam("productODateString") String productODate, @RequestParam("productDDateString") String productDDate, @RequestParam("supplierIDAndName") String supplierID, Model model) {
+
+        product.setSupplierID(Integer.parseInt(supplierID.split(" ")[0]));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            product.setProductODate(simpleDateFormat.parse(productODate));
+            product.setProductDDate(simpleDateFormat.parse(productDDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        productService.addProduct(product);
+
+        List<Product> productList = productService.getAllProduct();
+        int productListLength = productList.size();
+        int pageCount = productListLength / 5;
+        if ((productListLength % 5) != 0) ++pageCount;
+        if (pageCount < 1) pageCount = 1;
+        model.addAttribute("curPage", 1);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("productName", null);
+        model.addAttribute("products", productList.subList(0, min(5, productListLength)));
+
+        return "showProduct";
+    }
+
+    @RequestMapping(value = "/queryProduct")
+    public String queryProduct(Model model, String productName) {
+        Product product = new Product();
+        product.setProductName(productName);
+
+        List<Product> productList = productService.getProductByOr(product);
+        int productListLength = productList.size();
+        int pageCount = productListLength / 5;
+        if ((productListLength % 5) != 0) ++pageCount;
+        if (pageCount < 1) pageCount = 1;
+        model.addAttribute("curPage", 1);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("productName", productName);
+        model.addAttribute("products", productList.subList(0, min(5, productListLength)));
+
+        return "showProduct";
+    }
+
+    @RequestMapping(value = "/deleteProduct/{page}/{productID}")
+    public String deleteProduct(Model model, @PathVariable("page") int page, @PathVariable("productID") int productID, String productName) {
+        productService.deleteProduct(productID);
+
+        Product product = new Product();
+        product.setProductName(productName);
+        List<Product> productList1 = productService.getProductByOr(product);
+        List<Product> productList = new ArrayList<Product>();
+        int productListLength = productList1.size();
+        int pageCount = productListLength / 5;
+        if ((productListLength % 5) != 0) ++pageCount;
+        if (pageCount < 1) pageCount = 1;
+        if (page > pageCount) page = pageCount;
+        if (page < 1) page = 1;
+        for (int i = (page-1)*5, cnt = 0; i < productListLength && cnt < 5; ++i, ++cnt) {
+            productList.add(productList1.get(i));
+        }
+        model.addAttribute("products", productList);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("curPage", page);
+        model.addAttribute("productName", productName);
+        return "showProduct";
+    }
+
+    @RequestMapping(value = "/update/{page}/{productID}")
+    public String update(@PathVariable("productID")int productID,@PathVariable("page") int page, String productName,
+                         Model model){
+        List<Supplier> suppliers = supplierService.getAllSupplier();
+        List<sup> sups = new ArrayList<sup>();
+        for (Supplier i: suppliers) {
+            sups.add(new sup(i.getSupplierID(), i.getSupplierID() + " " + i.getSupplierName()));
+        }
+        model.addAttribute("suppliers", sups);
+        Product product = productService.getProductByID(productID);
+        model.addAttribute("product", product);
+        model.addAttribute("productQueryName", productName);
+        model.addAttribute("curPage", page);
+        return "updateProduct";
+    }
+
+    @RequestMapping(value = "/saveUpdate/{page}/{productID}")
+    public String saveUpdate(Product product, @PathVariable("productID")int productID,@RequestParam("productODateString") String productODate, @PathVariable("page") int page,
+                             @RequestParam("productDDateString") String productDDate, @RequestParam("supplierIDAndName") String supplierID, Model model, String productQueryName){
+
+        product.setSupplierID(Integer.parseInt(supplierID.split(" ")[0]));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            product.setProductODate(simpleDateFormat.parse(productODate));
+            product.setProductDDate(simpleDateFormat.parse(productDDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        productService.updateProduct(product);
+        System.out.println("----------" + productQueryName);
+
+        Product product1 = new Product();
+        product1.setProductName(productQueryName);
+        List<Product> productList1 = productService.getProductByOr(product1);
+        List<Product> productList = new ArrayList<Product>();
+        int productListLength = productList1.size();
+        int pageCount = productListLength / 5;
+        if ((productListLength % 5) != 0) ++pageCount;
+        if (pageCount < 1) pageCount = 1;
+        if (page > pageCount) page = pageCount;
+        if (page < 1) page = 1;
+        for (int i = (page-1)*5, cnt = 0; i < productListLength && cnt < 5; ++i, ++cnt) {
+            productList.add(productList1.get(i));
+        }
+        model.addAttribute("curPage", page);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("productName", productQueryName);
+        model.addAttribute("products", productList);
+        return "showProduct";
+    }
+}

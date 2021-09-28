@@ -1,0 +1,133 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: admin
+  Date: 2021/7/28
+  Time: 9:55
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>关于我们</title>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/bootstrap1.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/style0.css">
+<%--    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/addCSS.css">--%>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/bootstrap.css">
+    <style>
+        .middle {
+            margin:0  auto;
+            width:100%;
+        }
+        .left {
+            float:left;
+            clear:right;
+            margin:0;
+            width:20%;
+            height:600px;
+            background:white;
+            padding: 2em 2em;
+        }
+        .content {
+            float:left;
+            clear:right;
+            width:60%;
+            height:600px;
+            background:white;
+            font-family:方正粗黑宋简体;
+            font-size: 20px;
+            color:#122b40;
+            background:url("<%=request.getContextPath() %>/resources/images/aboutour.jpg");
+            background-repeat: no-repeat;
+            background-size: 150%,150%;
+            line-height: 200%;
+        }
+        .right {
+            float:right;
+            margin:0;
+            width:20%;
+            height:600px;
+            background:#339966;
+        }
+        .foot {
+            float:left;
+            width:100%;
+            height:150px;
+            margin: 0;
+            background-color:lightyellow;
+            text-align: center;
+        }
+        .textinput {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+            -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+            -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+            transition: border linear 0.2s, box-shadow linear 0.2s;
+            height: 40px;
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+<div id="Head_1">
+    <b style="padding-left: 35%">猫仔茶</b>
+    <div id="Head_1_Logo">
+        <img src="<%=request.getContextPath() %>/resources/images/logo.png" width="90px" height="80px"/>
+    </div>
+
+    <div id="Head_1_UserWelcome" >
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right" >
+                <li><a href="<%=request.getContextPath()%>/mainPage/homepage" class="active">首页</a></li>
+                <li><a href="<%=request.getContextPath()%>/mainPage/aboutour" class="active">关于我们</a></li>
+                <li><a href="<%=request.getContextPath()%>/mainPage/showAll" class="active">产品展示</a></li>
+                <li><a href="<%=request.getContextPath()%>/index/admin">管理员登录</a></li>
+                <li><a href="">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="middle">
+    <div class="left">
+        <form action="" method class="survey">
+            <h4>*立即咨询 获取加盟资料</h4>
+            <input type="text" name="Name" placeholder="请输入称呼，如“万先生”" class="textinput" >
+            <input type="text" name="Tel" class="textinput" placeholder="请输入手机号" >
+            <input type="text" name="Region" class="textinput" placeholder="请输入所要加盟地区" >
+            <textarea name="Question" class="textinput" placeholder="请输入想要咨询的内容"></textarea>
+             &nbsp;&nbsp;<input type="radio" required="required">我同意加盟</td>
+            &nbsp;&nbsp;<input type="submit" value="提交" class="btn">
+        </form>
+    </div>
+
+    <div class="content" align="center">
+        <h2 style="font-family:方正粗黑宋简体;font-size: 30px; padding-top: 30px;padding-bottom: 10px">关于我们</h2>
+        <p>猫仔茶企业文化有限公司旗下品牌猫仔茶从2021年创立至今，</p>
+        <p>全国门店超4000家，品牌已覆盖全国大部分城市。</p>
+        <p>猫仔茶还将熊猫元素融入其中，憨态可掬的猫猫形象深入人心。</p>
+        <p>特色饮品加上特别的中国文化元素深受年轻人士的喜爱。</p>
+        <p>对于猫仔茶来说，“茶”有着特殊的含义。</p>
+        <p>茶，不止是一个动作，一杯饮品，更代表着一种生活方式。</p>
+        <p>猫仔茶回到做好一杯饮品的本质上，用原料、工艺、创新精神来创作饮品。</p>
+        <p>坚持原叶现萃，使用华中农业大学一级华农绿针，保证茶汤既去除了涩味又保留了茶香，</p>
+        <p>通过茶、鲜果这些食材的组合创新，呈现出生活中值得等待的美味品牌IP。</p>
+    </div>
+
+    <div class="right">
+
+    </div>
+
+    <div class="foot">
+        <div class="foot-text">
+            <h3>@猫仔茶</h3>
+            <p>成都总部:成都市郫都区红旗大道北段国家信息中心四楼405</p>
+            <p>武汉分公司:武汉市洪山区狮子山街道华中农业大学荟园区</p>
+            <p>版权所有：猫仔茶企业文化有限公司加盟热线:xxx-xxx-xxx投诉热线: xxx-xxx-xxx </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

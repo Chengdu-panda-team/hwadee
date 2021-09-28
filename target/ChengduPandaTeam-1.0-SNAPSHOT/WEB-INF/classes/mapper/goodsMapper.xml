@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MaozaiTea.mapper.GoodsMapper">
+    <select id="getAllGoods" resultType="Goods">
+        select * from goods
+    </select>
+
+    <select id="getGoodsByOr" parameterType="Goods" resultType="Goods">
+        select * from goods
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="goodsName != null">
+                and goodsName = #{goodsName}
+            </if>
+            <if test="goodsImg != null">
+                and goodsImg = #{goodsImg}
+            </if>
+            <if test="goodsPrice != null">
+                and goodsPrice = #{goodsPrice}
+            </if>
+            <if test="goodsCategory != null">
+                and goodsCategory = #{goodsCategory}
+            </if>
+            <if test="goodsInf != null">
+                and goodsInf = #{goodsInf}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getGoodsByID" parameterType="java.lang.Integer" resultType="Goods">
+        select * from goods where goodsID = #{param1}
+    </select>
+
+    <insert id="addGoods" parameterType="Goods">
+        <selectKey keyProperty="goodsID" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id()
+        </selectKey>
+        insert into goods(goodsID, goodsName, goodsImg, goodsPrice, goodsCategory, goodsInf)
+        values
+        (#{goodsID}, #{goodsName}, #{goodsImg}, #{goodsPrice}, #{goodsCategory}, #{goodsInf})
+    </insert>
+
+    <delete id="deleteGoods" parameterType="java.lang.Integer">
+        delete from goods where goodsID = #{param1}
+    </delete>
+
+    <update id="updateGoods" parameterType="Goods">
+        update goods
+        <trim prefix="set" suffixOverrides=",">
+            <if test="goodsName != null">
+                goodsName = #{goodsName},
+            </if>
+            <if test="goodsImg != null">
+                goodsImg = #{goodsImg},
+            </if>
+            <if test="goodsPrice != null">
+                goodsPrice = #{goodsPrice},
+            </if>
+            <if test="goodsCategory != null">
+                goodsCategory = #{goodsCategory},
+            </if>
+            <if test="goodsInf != null">
+                goodsInf = #{goodsInf},
+            </if>
+        </trim>
+        where goodsID = #{goodsID}
+    </update>
+
+    <select id="getGoodsByOr2" parameterType="GoodsQuery" resultType="Goods">
+        select * from goods
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="goodsQueryName != null">
+                and goodsName like '%${goodsQueryName}%'
+            </if>
+            <if test="goodsQueryImg != null">
+                and goodsImg = #{goodsQueryImg}
+            </if>
+            <if test="goodsQueryCategory != null">
+                and goodsCategory = #{goodsQueryCategory}
+            </if>
+            <if test="goodsQueryInf != null">
+                and goodsInf like '%${goodsQueryInf}%'
+            </if>
+            <if test="goodsQueryLowPrice != null">
+                and <![CDATA[goodsPrice >= #{goodsQueryLowPrice}]]>
+            </if>
+            <if test="goodsQueryHighPrice != null">
+                and <![CDATA[goodsPrice <= #{goodsQueryHighPrice}]]>
+            </if>
+        </trim>
+        limit #{goodsQueryStart},#{goodsQueryPageSize}
+    </select>
+
+    <select id="getCount" parameterType="GoodsQuery" resultType="java.lang.Integer">
+        select count(*) from goods
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="goodsQueryName != null">
+                and goodsName like '%${goodsQueryName}%'
+            </if>
+            <if test="goodsQueryImg != null">
+                and goodsImg = #{goodsQueryImg}
+            </if>
+            <if test="goodsQueryCategory != null">
+                and goodsCategory = #{goodsQueryCategory}
+            </if>
+            <if test="goodsQueryInf != null">
+                and goodsInf like '%${goodsQueryInf}%'
+            </if>
+            <if test="goodsQueryLowPrice != null">
+                and <![CDATA[goodsPrice >= #{goodsQueryLowPrice}]]>
+            </if>
+            <if test="goodsQueryHighPrice != null">
+                and <![CDATA[goodsPrice <= #{goodsQueryHighPrice}]]>
+            </if>
+        </trim>
+    </select>
+</mapper>

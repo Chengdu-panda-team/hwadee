@@ -1,0 +1,4 @@
+package MaozaiTea.mapper;
+
+public interface GoodsMapper {
+}

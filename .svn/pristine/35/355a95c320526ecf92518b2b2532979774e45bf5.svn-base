@@ -1,0 +1,4 @@
+package MaozaiTea.service;
+
+public interface GoodsService {
+}

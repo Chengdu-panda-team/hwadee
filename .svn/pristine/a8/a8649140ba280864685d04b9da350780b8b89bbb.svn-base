@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MaozaiTea.mapper.CustomerMapper">
+<!--    <insert id="addOrder" parameterType="Order">-->
+<!--        insert into hw_order (o_id, o_name, o_date, o_price, o_user) values (#{o_id}, #{o_name}, #{o_date}, #{o_price}, #{o_user})-->
+<!--       </insert>-->
+
+<!--    <delete id="deleteOrder" parameterType="java.lang.Integer">-->
+<!--        delete from hw_order where o_id = #{param1}-->
+<!--       </delete>-->
+
+<!--    <update id="modifyOrder">-->
+<!--        update hw_order set o_name=#{param2}, o_date=#{param3}, o_price=#{param4}, o_user=#{param5} where o_id=#{param1}-->
+<!--    </update>-->
+
+<!--    <select id="getOrder" parameterType="java.lang.Integer" resultType="Order">-->
+<!--        select * from hw_order where o_id=#{param1}-->
+<!--    </select>-->
+
+</mapper>

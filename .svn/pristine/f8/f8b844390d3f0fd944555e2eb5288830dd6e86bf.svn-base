@@ -1,0 +1,25 @@
+package MaozaiTea.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping(value = "/index")
+public class IndexController {
+    @RequestMapping(value = "/top")
+    public String top() {
+        return "top";
+    }
+    @RequestMapping(value = "/right")
+    public String right() {
+        return "right";
+    }
+    @RequestMapping(value = "/left")
+    public String left() {
+        return "left";
+    }
+    @RequestMapping(value = "/goods")
+    public String goods() {
+        return "showGoods";
+    }
+}

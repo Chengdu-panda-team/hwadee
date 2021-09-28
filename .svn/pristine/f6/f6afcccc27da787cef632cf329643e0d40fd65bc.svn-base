@@ -1,0 +1,81 @@
+package MaozaiTea.pojo;
+
+//用于模糊查询Goods类的查询类，存放Goods信息外加用于查询的价格区间[lowPrice, highPrice]
+public class GoodsQuery {
+    private int goodsID;
+    private String goodsName;
+    private String goodsImg;
+    private String goodsCategory;
+    private String goodsInf;
+    private Double lowPrice;
+    private Double highPrice;
+
+    public int getGoodsID() {
+        return goodsID;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public String getGoodsImg() {
+        return goodsImg;
+    }
+
+    public String getGoodsCategory() {
+        return goodsCategory;
+    }
+
+    public String getGoodsInf() {
+        return goodsInf;
+    }
+
+    public Double getLowPrice() {
+        return lowPrice;
+    }
+
+    public Double getHighPrice() {
+        return highPrice;
+    }
+
+    public void setGoodsID(int goodsID) {
+        this.goodsID = goodsID;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public void setGoodsImg(String goodsImg) {
+        this.goodsImg = goodsImg;
+    }
+
+    public void setGoodsCategory(String goodsCategory) {
+        this.goodsCategory = goodsCategory;
+    }
+
+    public void setGoodsInf(String goodsInf) {
+        this.goodsInf = goodsInf;
+    }
+
+    public void setLowPrice(Double lowPrice) {
+        this.lowPrice = lowPrice;
+    }
+
+    public void setHighPrice(Double highPrice) {
+        this.highPrice = highPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "GoodsQuery{" +
+                "goodsID=" + goodsID +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsImg='" + goodsImg + '\'' +
+                ", goodsCategory='" + goodsCategory + '\'' +
+                ", goodsInf='" + goodsInf + '\'' +
+                ", lowPrice=" + lowPrice +
+                ", highPrice=" + highPrice +
+                '}';
+    }
+}

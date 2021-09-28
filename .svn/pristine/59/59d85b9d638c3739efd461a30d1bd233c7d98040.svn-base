@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新增商品</title>
+  <style>
+    body {
+     background:url("<%=request.getContextPath() %>/resources/images/background.png");
+    }
+ </style>
+</head>
+<body>
+  <div align="center">
+    <h4>新增商品信息</h4>
+    <form action="<%=request.getContextPath()%>/">
+      <table>
+        <tr>
+          <td class="item_name" style="width:120px;">商品名称</td><td><input type="text" name="goodsName"></td>
+        </tr>
+        <tr>
+          <td class="item_name" style="width:120px;">商品价格</td><td><input type="text" name="goodsPrice"></td>
+        </tr>
+        <tr>
+          <td class="item_name" style="width:120px;">商品种类</td>
+          <td>
+            <select name="goodsCategory">
+              <option>请选择</option>
+              <option>奶茶</option>
+              <option>果茶</option>
+              <option>冷萃茶</option>
+              <option>烧仙草</option>
+            </select>
+          </td>
+        </tr>
+          <td class="item_name" style="width:120px;">上传图片:</td>
+          <td><label class="uploadImg" ><input type="file" name="goodsImg"></label></td>
+        <tr>
+        </tr>
+          <td class="item_name" style="width:120px;">用料详情</td>
+          <td>
+            <textarea name="goodsInf">用料详情</textarea>
+          </td>
+        <tr>
+          <td> </td> 
+          <td>
+              <input type="submit" value="提交">
+              <input type="button" value="取消" onclick="history.go(-1)">
+          </td>
+        </tr>
+      </table>
+    </form>
+
+  </div>
+</body>
+</html>

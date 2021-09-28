@@ -1,0 +1,17 @@
+package MaozaiTea.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping(value = "/product")
+public class ProductController {
+    @RequestMapping(value = "/show")
+    public String showProduct() {
+        return "showProduct";
+    }
+    @RequestMapping(value = "/add")
+    public String addProduct() {
+        return "addProduct";
+    }
+}

@@ -1,0 +1,68 @@
+    <%--
+  Created by IntelliJ IDEA.
+  User: admin
+  Date: 2021/7/22
+  Time: 13:00
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Top</title>
+<style>
+    body {
+    margin: 0;
+    width: 100%;
+    }
+    #Head_1 {
+        border-bottom: 20px solid burlywood;
+    height: 100px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: lightyellow;
+        text-align: center;
+        line-height: 150%;
+        color:burlywood;
+        font-size: 70px;
+        font-family:方正粗黑宋简体;
+        font-weight: 900;
+    }
+    #Head_1 #Head_1_Logo {
+        float: left;
+        left: 20px;
+        position: absolute;
+        top: 5px;
+        }
+
+    #Head_1 #Head_1_UserWelcome {
+        float: right;
+        color: #B3E1FF;
+        font-family: "宋体";
+        font-size: 20px;
+        height: 25px;
+        padding-top: 20px;
+        margin-right: 30px;
+    }
+    </style>
+<%--    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/bootstrap.css">--%>
+</head>
+<body>
+
+<!-- 上部 -->
+<div id="Head_1">
+    <div id="Head_1_Logo">
+        <img src="<%=request.getContextPath() %>/resources/images/logo.png" width="90px" height="80px"/>
+    </div>
+
+        <b>猫仔茶基础信息管理</b>
+
+    <div id="Head_1_UserWelcome" >
+            欢迎&nbsp
+
+        <a href="<%=request.getContextPath()%>/admin/logout"  target="_parent"><img src="<%=request.getContextPath()%>/resources/images/home.png" width="40px" height="40px"></a>
+
+    </div>
+</div>
+
+</body>
+</html>

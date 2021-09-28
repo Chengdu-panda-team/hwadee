@@ -1,0 +1,39 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 86198
+  Date: 2021/7/22
+  Time: 17:29
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>新增供应商</title>
+</head>
+<body>
+<div align="center">
+    <h4>新增供应商信息</h4>
+    <form action="<%=request.getContextPath()%>/">
+        <table>
+            <tr>
+                <td style="width:100px;">供应商名称</td><td><input type="text" name="supplierName"></td>
+            </tr>
+            <tr>
+                <td style="width:100px;">供应商电话</td><td><input type="tel" name="supplierTel"></td>
+            </tr>
+            <tr>
+                <td style="width:100px;">供应商地址</td><td><input type="text" name="supplierAddress"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="提交">
+                    <input type="button" value="取消" onclick="history.go(-1)">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

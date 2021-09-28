@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- c3p0数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl"
+                  value="jdbc:mysql://120.24.201.165:3306/test?characterEncoding=utf-8"/>
+        <property name="user" value="root" />
+        <property name="password" value="123456" />
+    </bean>
+
+    <!-- 配置Service类 -->
+    <bean id="customerService" class="MaozaiTea.service.Impl.CustomerServiceImpl"/>
+    <bean id="goodsService" class="MaozaiTea.service.Impl.GoodsServiceImpl"/>
+    <bean id="productService" class="MaozaiTea.service.Impl.ProductServiceImpl"/>
+    <bean id="supplierService" class="MaozaiTea.service.Impl.SupplierServiceImpl"/>
+
+    <!-- mybatis的SqlSession的工厂 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+    </bean>
+
+    <!-- mapper扫描器 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="MaozaiTea.mapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!--    创建aop的切面类-->
+    <bean id="log" class="MaozaiTea.LogImpl"/>
+
+    <!--    配置aop的切入点-->
+<!--    <aop:config>-->
+<!--        <aop:pointcut id="logPoint" expression="execution(* MaozaiTea.service.UserService+.*(..))/"/>-->
+<!--        <aop:aspect id="myAspect" ref="log">-->
+<!--            &lt;!&ndash;            前置通知&ndash;&gt;-->
+<!--            <aop:before method="beforeInsert" pointcut-ref="logPoint"/>-->
+<!--            &lt;!&ndash;            最终通知&ndash;&gt;-->
+<!--            &lt;!&ndash;            <aop:after method="afterInsert" pointcut-ref="logPoint"/>&ndash;&gt;-->
+<!--            &lt;!&ndash;            环绕通知&ndash;&gt;-->
+<!--            &lt;!&ndash;            <aop:around method="aroundInsert" pointcut-ref="logPoint"/>&ndash;&gt;-->
+<!--            &lt;!&ndash;            返回后通知&ndash;&gt;-->
+<!--            <aop:after-returning method="afterReturning" pointcut-ref="logPoint"/>-->
+<!--            &lt;!&ndash;            异常通知&ndash;&gt;-->
+<!--            <aop:after-throwing method="throwingAdvice" pointcut-ref="logPoint"/>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+<!--        文件上传最大值50M-->
+        <property name="maxUploadSize" value="52428800"/>
+    </bean>
+</beans>
+
